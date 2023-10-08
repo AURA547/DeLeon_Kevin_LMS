@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Library {
+    private List<Book> books;
+
+    public Library() {
+        this.books = new ArrayList<>();
+    }
+
+    // Method to add a book to the library
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    // Method to remove a book by barcode
+    public void removeBookByBarcode(int barcode) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getId() == barcode) {
+                books.remove(i);
+                break;
+            }
+        }
+    }
+
+    // Method to remove a book by title
+    public void removeBookByTitle(String title) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getTitle().equalsIgnoreCase(title)) {
+                books.remove(i);
+                break;
+            }
+        }
+    }
+
+    // Method to check out a book by title
+    public void checkOutBookByTitle(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                book.checkOut();
+                break;
+            }
+        }
+    }
+
+    // Method to check in a book by title
+    public void checkInBookByTitle(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                book.checkIn();
+                break;
+            }
+        }
+    }
+
+    // Method to print the library's book collection
+    public void printLibrary() {
+        for (Book book : books) {
+            System.out.println(book.toString());
+        }
+    }
+}

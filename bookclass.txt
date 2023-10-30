@@ -1,0 +1,32 @@
+public class Book {
+    private int id;
+    private String title;
+    private String author;
+    private boolean isCheckedOut;
+
+    // Constructor
+    public Book(int id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isCheckedOut = false; // Initialize as not checked out
+    }
+
+    // Getters and Setters (No need for detailed comments here)
+
+    // Method to check out the book
+    public void checkOut() {
+        isCheckedOut = true;
+    }
+
+    // Method to check in the book
+    public void checkIn() {
+        isCheckedOut = false;
+    }
+
+    // Override toString() method to display book information
+    @Override
+    public String toString() {
+        return id + "," + title + "," + author + (isCheckedOut ? " (Checked Out)" : "");
+    }
+}

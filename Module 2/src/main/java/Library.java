@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +18,7 @@ public class Library {
     }
 
     public void removeBookByBarcode(int barcode) {
-        books.removeIf(book -> book.getId() == barcode);
+        books.removeIf(book -> book.getBarcode() == barcode);
     }
 
     public void removeBookByTitle(String title) {
@@ -49,4 +53,27 @@ public class Library {
         return books;
     }
 
+    public void insertBook(String title, String author, String genre, int barcode, String status, String dueDate) {
+        String url = "jdbc:mysql://localhost:3306";  //
+        String username = "root";  //
+        String password = "hatsune miku";  //
+
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            String sql = "INSERT INTO books (title, author, genre, barcode, status, due_date) VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, title);
+                preparedStatement.setString(2, author);
+                preparedStatement.setString(3, genre);
+                preparedStatement.setInt(4, barcode);
+                preparedStatement.setString(5, status);
+                preparedStatement.setString(6, dueDate);
+
+                preparedStatement.executeUpdate();
+            }
+            System.out.println("Book inserted successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error inserting book into the database.");
+        }
+    }
 }
